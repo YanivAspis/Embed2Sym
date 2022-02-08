@@ -1,0 +1,1 @@
+{"rules": ["holds(S, member_output, true) :- holds(S, element, element_input(_), X), holds(S, target_member, target_input, X).", "holds(S, member_output, false) :- sample(S), not holds(S, member_output, true)."], "training_only_rules": []}

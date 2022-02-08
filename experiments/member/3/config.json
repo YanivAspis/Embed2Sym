@@ -1,0 +1,15 @@
+{
+  "batch_size": 128,
+  "test_batch_size": 1024,
+  "learning_rate": 0.001,
+  "train_epochs": 30,
+  "num_samples_for_cluster_training": 100,
+  "embedding_size": 128,
+  "loss": {
+    "member": "categorical_crossentropy"
+  },
+  "metrics": {
+    "member": "categorical_accuracy"
+  },
+  "optimizer": "adam"
+}

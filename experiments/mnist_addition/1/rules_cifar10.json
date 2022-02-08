@@ -1,0 +1,1 @@
+{"rules": ["holds(S, sum_output, Z) :- holds(S, digit, digit_input(1,1), X), holds(S, digit, digit_input(2,1), Y), Z = X+Y."], "training_only_rules": []}
