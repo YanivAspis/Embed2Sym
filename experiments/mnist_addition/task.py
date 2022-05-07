@@ -1,10 +1,13 @@
+from os import path
+
 import tensorflow as tf
+
 from framework.dataset import EmbeddingReasoningDatasetCreator
 from framework.task import Task
 from experiments.data.raw_datasets import MNISTRawDataset, CIFAR10RawDataset
 from experiments.networks.perception_networks import LeNet, ResNet56Cifar10
 from experiments.networks.reasoning_networks import mlp_reasoning, mlp_reasoning_cifar10
-from os import path
+
 
 def cifar10_learning_rate_schedule(epoch, lr):
     if epoch == 100 or epoch == 150:

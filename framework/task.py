@@ -1,7 +1,9 @@
-from framework.metadata import TaskMetadata
-
 from os import path
 import json
+
+from framework.metadata import TaskMetadata
+
+
 
 class Task:
     TASKS_BASE_DIR = path.join("embedding_reasoning", "experiments")

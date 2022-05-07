@@ -1,7 +1,9 @@
-import numpy as np
-import tensorflow as tf
 import random
 import json
+
+import numpy as np
+import tensorflow as tf
+
 
 
 class LatentConceptSample:
@@ -196,6 +198,8 @@ class EmbeddingReasoningFullDataset(tf.keras.utils.Sequence):
         return tuple(inputs), tuple(labels)
 
     def sample_items(self, k):
+        if k > len(self._sample_ids):
+            k = len(self._sample_ids)
         ids = random.sample(self._sample_ids, k)
         return self.get_samples(ids)
 

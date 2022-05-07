@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+
 from framework.dataset import LatentConceptSample
 
 class MNISTRawDataset:
@@ -94,3 +95,39 @@ class CIFAR10RawDataset:
             return self.datagen.random_transform(img)
         else:
             return img
+
+
+class DigitComparisonDataset:
+    def __init__(self):
+        self._pairs = [(i,j) for i in range(10) for j in range(10)]
+        self._labels = ["not_swap", "swap"]
+
+    def __pair_to_label(self, pair):
+        if pair[0] <= pair[1]:
+            return self._labels[0]
+        else:
+            return self._labels[1]
+
+    def __pair_to_label_index(self, pair):
+        if pair[0] <= pair[1]:
+            return 0
+        else:
+            return 1
+
+    def build_latent_concept_dataset(self, latent_concept_name):
+        pair_samples = {
+            "{}_{}".format(pair[0], pair[1]): LatentConceptSample("{}_{}".format(pair[0], pair[1]), latent_concept_name, self.__pair_to_label(pair), self.__pair_to_label_index(pair))
+            for pair in self._pairs
+        }
+        return {
+                "train": pair_samples,
+                "valid": pair_samples,
+                "test": pair_samples
+        }
+
+    def retrieve_raw_input(self, latent_concept_sample_id, train_valid_test):
+        splits = latent_concept_sample_id.split('_')
+        pair = (int(splits[0]), int(splits[1]))
+        first_digit = tf.keras.utils.to_categorical(pair[0], num_classes=10)
+        second_digit = tf.keras.utils.to_categorical(pair[1], num_classes=10)
+        return np.concatenate([first_digit, second_digit])

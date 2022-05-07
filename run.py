@@ -1,21 +1,24 @@
-from experiments.experiment_runner import run_experiment
 import argparse
+
+from experiments.experiment_runner import run_experiment
 
 task_to_latent_concepts = {
     "mnist_addition": ["digit"],
-    "member": ["element"]
+    "member": ["element"],
+    "forth_sort": ["comparison"]
 }
 
 task_to_valid_N = {
     "mnist_addition": [1,2,3,4,15],
     "cifar10_addition": [1],
-    "member": [3,4,5,20]
+    "member": [3,4,5,20],
+    "forth_sort": [2,3,4,5,6,7,8]
 }
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="Embed2Sym Experiment Runner", description="Run experiments presented in the paper \"Embed2Sym - Scalable Neuro-Symbolic Reasoing via Clustered Embeddings\"")
-    parser.add_argument("task", type=str, choices=["mnist_addition", "cifar10_addition", "member"], help="Experiment to run")
-    parser.add_argument("N", type=int, help="For MNIST Addition - number of digits per summand. (1, 2, 3, 4 or 15). For Member - number of elements in set. (3,4,5 or 20)")
+    parser.add_argument("task", type=str, choices=["mnist_addition", "cifar10_addition", "member", "forth_sort"], help="Experiment to run")
+    parser.add_argument("N", type=int, help="For MNIST Addition - number of digits per summand. (1, 2, 3, 4 or 15). For Member - number of elements in set. (3,4,5 or 20). For Forth Sort - list length (2,3,4,5,6,7 or 8).")
     args = parser.parse_args()
 
     if args.N not in task_to_valid_N[args.task]:

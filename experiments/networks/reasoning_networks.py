@@ -50,3 +50,19 @@ def member_attention_reasoning(inputs):
         tf.keras.layers.Dense(units=256, activation=tf.keras.activations.relu)
     ])(attended_input_concatenated)
     return tf.keras.Model(inputs=tuple(inputs), outputs=outputs)
+
+
+def sort_reasoning(inputs, length):
+    num_comaprisons = length * (length - 1) // 2
+    comparison_inputs = tf.keras.layers.Concatenate()(inputs[:num_comaprisons])
+    list_inputs = tf.stack(inputs[num_comaprisons:], axis=1)
+
+    permutation_flattened = tf.keras.Sequential([
+        tf.keras.layers.Dense(units=10 * length, activation=tf.keras.activations.relu),
+        tf.keras.layers.Dense(units=10 * length, activation=tf.keras.activations.relu),
+        tf.keras.layers.Dense(units=length * length, activation=tf.keras.activations.relu),
+    ])(comparison_inputs)
+    permutation = tf.keras.layers.Reshape((length, length))(permutation_flattened)
+    output = tf.linalg.matmul(permutation, list_inputs)
+    output = tf.unstack(output, axis=1)
+    return tf.keras.Model(inputs=tuple(inputs), outputs=output)

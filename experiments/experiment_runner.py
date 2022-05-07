@@ -1,13 +1,17 @@
+from os import path
+
 import tensorflow as tf
-from framework.embedding_reasoning_model import EmbeddingReasoningModel
+import tqdm
+
+from framework.embed2sym_model import Embed2SymModel
 from experiments.mnist_addition.task import MNISTAdditionTask
 from experiments.member.task import MemberTask
-import tqdm
-from os import path
+from experiments.forth_sort.task import ForthSortTask
 
 TASKS = {
     "mnist_addition": MNISTAdditionTask,
     "member": MemberTask,
+    "forth_sort": ForthSortTask
 }
 
 def test_dataset(task_name, task_args):
@@ -123,7 +127,7 @@ def run_experiment(task_name, latent_concepts_to_evaluate, task_args, results_ba
     checkpoint_dir = path.join(results_dir, "checkpoints") if results_dir is not None else None
 
     task = TASKS[task_name](**task_args)
-    model = EmbeddingReasoningModel(task.metadata, task.config)
+    model = Embed2SymModel(task.metadata, task.config)
     for rule in task.rules:
         model.add_rule(rule)
     for rule in task.training_only_rules:

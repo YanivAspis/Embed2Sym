@@ -1,11 +1,14 @@
+from os import path
+
 import numpy as np
 import tensorflow as tf
+
 from framework.dataset import EmbeddingReasoningDatasetCreator
 from framework.task import Task
+
 from experiments.data.raw_datasets import MNISTRawDataset
 from experiments.networks.perception_networks import LeNet
 from experiments.networks.reasoning_networks import member_attention_reasoning
-from os import path
 
 
 class MemberDatasetCreator(EmbeddingReasoningDatasetCreator):

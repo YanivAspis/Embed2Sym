@@ -106,3 +106,10 @@ def ResNet56Cifar10(output_size=10, final_activation="softmax"):
         "relu": tf.keras.layers.ReLU()
     }[final_activation](dense_out)
     return tf.keras.Model(inputs=inputs, outputs=outputs)
+
+
+def ComparisonNet(output_size):
+    return tf.keras.Sequential([
+        tf.keras.layers.Dense(units=20, activation=tf.keras.activations.relu),
+        tf.keras.layers.Dense(units=16, activation=tf.keras.activations.relu)
+    ])

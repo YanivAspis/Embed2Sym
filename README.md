@@ -36,6 +36,13 @@ python run.py member N
 ```
 where N should be replaced with one of 3, 4, 5 and 20.
 
+* Forth Sort
+
+```
+python run.py forth_sort N
+```
+where N should be replaced with one of 2, 3, 4, 5, 6, 7 and 8.
+
 Note that while the current script only runs these specific experiments, 
 the framework is general and can easily be employed for many neuro-symbolic tasks.
 In the future we will add code and instructions here for running Embed2Sym on your own tasks.  
